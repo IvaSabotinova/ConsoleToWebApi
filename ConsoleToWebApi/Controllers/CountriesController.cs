@@ -6,11 +6,11 @@ namespace ConsoleToWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [BindProperties(SupportsGet = true)]
+    //[BindProperties(SupportsGet = true)]
     public class CountriesController : ControllerBase
     {
         // [BindProperty(SupportsGet = true)]
-         public CountryModel Country { get; set; }
+         //public CountryModel Country { get; set; }
 
         //public string Name { get; set; }
 
@@ -18,12 +18,19 @@ namespace ConsoleToWebApi.Controllers
 
         //public int Area { get; set; }
 
-        [HttpGet("")]
-        public IActionResult AddCountry()
+        [HttpPost("{id}")]
+        public IActionResult AddCountry([FromRoute] int id,[FromHeader] string developer,
+             string course, string accept)
         {
-            return Ok($"Name={this.Country.Name}, " +
-                $"Population={this.Country.Population}, " +
-                $"Area={this.Country.Area}");
+            return Ok($"Name={developer}");
+
+
+        }
+
+        [HttpGet("search")]
+        public IActionResult SearchCountries([ModelBinder(typeof(CustomBinder))] string[] countries)
+        {
+            return Ok(countries);
         }
     }
 }
