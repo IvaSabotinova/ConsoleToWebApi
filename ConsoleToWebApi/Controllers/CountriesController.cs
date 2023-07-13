@@ -32,5 +32,11 @@ namespace ConsoleToWebApi.Controllers
         {
             return Ok(countries);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult CountryDetails([ModelBinder(Name = "Id")] CountryModel country)
+        {
+            return Ok(country);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ConsoleToWebApi
+﻿using ConsoleToWebApi.Repository;
+
+namespace ConsoleToWebApi
 {
     public class Startup
     {
@@ -6,6 +8,8 @@
         {
             services.AddControllers();
             services.AddTransient<CustomMiddleware1>();
+
+            services.AddTransient<IProductRepository, ProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
