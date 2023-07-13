@@ -1,4 +1,5 @@
 ﻿using ConsoleToWebApi.Models;
+using ConsoleToWebApi.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace ConsoleToWebApi.Controllers
         [Route("")]
         public List<EmployeeModel> GetEmployees()
         {
-            return  new List<EmployeeModel>
+            return new List<EmployeeModel>
             {
                 new EmployeeModel() { Id = 1, Name = "Employee 1" },
                 new EmployeeModel() { Id = 2, Name = "Employee 2" }
@@ -21,8 +22,8 @@ namespace ConsoleToWebApi.Controllers
         [Route("{id}")]
         public IActionResult GetEmployees(int id)
         {
-            if(id == 0) 
-            { 
+            if (id == 0)
+            {
                 return NotFound();
             }
 
@@ -41,8 +42,15 @@ namespace ConsoleToWebApi.Controllers
                 return NotFound();
             }
 
-            return new EmployeeModel() { Id = 1, Name = "Employee 1" };             
+            return new EmployeeModel() { Id = 1, Name = "Employee 1" };
+        }
 
+
+        [HttpGet("")]
+        public IActionResult GetName([FromServices]IProductRepository productRepository)
+        {
+            string name = productRepository.GetName();
+            return Ok(name);
         }
     }
 }

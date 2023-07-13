@@ -24,5 +24,12 @@ namespace ConsoleToWebApi.Controllers
             List<ProductModel> products = productRepository1.GetAllProducts();
             return Ok(products);
         }
+
+        [HttpGet("")]
+        public IActionResult GetName()
+        {
+            string name = productRepository.GetName();
+            return Ok(name);
+        }
     }
 }

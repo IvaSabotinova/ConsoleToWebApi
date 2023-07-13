@@ -1,4 +1,5 @@
 ﻿using ConsoleToWebApi.Repository;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace ConsoleToWebApi
 {
@@ -9,7 +10,9 @@ namespace ConsoleToWebApi
             services.AddControllers();
             services.AddTransient<CustomMiddleware1>();
 
-            services.AddTransient<IProductRepository, ProductRepository>();
+            //this way 2nd registration overwrites 1st registration
+            services.TryAddTransient<IProductRepository, ProductRepository>();
+            services.TryAddTransient<IProductRepository, TestRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
